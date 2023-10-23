@@ -1,0 +1,49 @@
+﻿@model RedefinirSenhaModel
+@{
+	Layout = "_LayoutDeslogada";
+	ViewData["Titulo"] = "Redefinir a Senha";
+}
+
+@if (TempData["MensagemErro"] != null)
+{
+	<script type="text/javascript">
+		$(document).ready(function () {
+			$("#exampleModal").modal("show");
+		});
+	</script>
+
+}
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h1 class="modal-title fs-5" id="exampleModalLabel">AVISO!</h1>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<div class="alert alert-danger" role="alert">
+					@TempData["MensagemErro"]
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<form asp-controller="Login" asp-action="EnviarLink" method="post">
+	<div class="container col-md-3">
+		<div class="mb-3">
+			<label for="login" class="form-label">Login</label>
+			<input asp-for="Login" type="text" class="form-control input-group has-validation" id="login" required>
+		</div>
+		<div class="mb-3">
+			<label for="email" class="form-label">E-mail</label>
+			<input asp-for="Email" type="text" class="form-control" id="email" required>
+		</div>
+		<button type="submit" class="btn btn-primary">Redefinir Senha</button>
+		<a class="btn btn-secondary" asp-controller="Login" asp-action="Index" role="button">Voltar</a>
+	</div>
+</form>

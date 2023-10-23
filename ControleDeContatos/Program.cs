@@ -1,39 +1,54 @@
 using ControleDeContatos.Data;
+using ControleDeContatos.Helper;
 using ControleDeContatos.Repositorio;
 using Microsoft.EntityFrameworkCore;
 
 namespace ControleDeContatos
 {
-    public class Program
-    {
-        public static void Main(string[] args)
-        {
-            var builder = WebApplication.CreateBuilder(args);
+	public class Program
+	{
+		public static void Main(string[] args)
+		{
+			var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
-            builder.Services.AddControllersWithViews();
-            builder.Services.AddEntityFrameworkSqlServer()
-                .AddDbContext<BancoContext>(o => o.UseSqlServer(builder.Configuration.GetConnectionString("DataBase")));
-            builder.Services.AddScoped<IContatoRepositorio, ContatoRepositorio>();
+			// Add services to the container.
+			builder.Services.AddControllersWithViews();
+			builder.Services.AddEntityFrameworkSqlServer()
+				.AddDbContext<BancoContext>(o => o.UseSqlServer(builder.Configuration.GetConnectionString("DataBase")));
 
-            var app = builder.Build();
+			builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
-            // Configure the HTTP request pipeline.
-            if (!app.Environment.IsDevelopment())
-            {
-                app.UseExceptionHandler("/Home/Error");
-            }
-            app.UseStaticFiles();
+			builder.Services.AddScoped<IContatoRepositorio, ContatoRepositorio>();
+			builder.Services.AddScoped<IUsuarioRepositorio, UsuarioRepositorio>();
+			builder.Services.AddScoped<ISessao, Sessao>();
+			builder.Services.AddScoped<IEmail, Email>();
 
-            app.UseRouting();
+			builder.Services.AddSession(o =>
+			{
+				o.Cookie.HttpOnly = true;
+				o.Cookie.IsEssential = true;
+			});
 
-            app.UseAuthorization();
+			var app = builder.Build();
 
-            app.MapControllerRoute(
-                name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
+			// Configure the HTTP request pipeline.
+			if (!app.Environment.IsDevelopment())
+			{
+				app.UseExceptionHandler("/Home/Error");
+			}
+			app.UseStaticFiles();
 
-            app.Run();
-        }
-    }
+			app.UseRouting();
+
+			app.UseAuthorization();
+
+			app.UseSession();
+
+			app.MapControllerRoute(
+				name: "default",
+				pattern: "{controller=Login}/{action=Index}/{id?}");
+
+			app.Run();
+		}
+	}
 }

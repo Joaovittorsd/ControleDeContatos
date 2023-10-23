@@ -3,59 +3,59 @@ using ControleDeContatos.Models;
 
 namespace ControleDeContatos.Repositorio
 {
-    public class ContatoRepositorio : IContatoRepositorio
-    {
-        private readonly BancoContext _context;
+	public class ContatoRepositorio : IContatoRepositorio
+	{
+		private readonly BancoContext _context;
 
-        public ContatoRepositorio(BancoContext bancoContext)
-        {
-            _context = bancoContext;
-        }
+		public ContatoRepositorio(BancoContext bancoContext)
+		{
+			_context = bancoContext;
+		}
 
-        public ContatoModel ListarPorId(int id)
-        {
-            return _context.Contatos.FirstOrDefault(x => x.Id == id);
-        }
+		public ContatoModel BuscarPorId(int id)
+		{
+			return _context.Contatos.FirstOrDefault(x => x.Id == id);
+		}
 
-        public List<ContatoModel> BuscarTodos()
-        {
-            return _context.Contatos.ToList();
-        }
+		public List<ContatoModel> BuscarTodos(int usuarioId)
+		{
+			return _context.Contatos.Where(x => x.UsuarioId == usuarioId).ToList();
+		}
 
-        public ContatoModel Adicionar(ContatoModel contato)
-        {
-            _context.Contatos.Add(contato);
-            _context.SaveChanges();
+		public ContatoModel Adicionar(ContatoModel contato)
+		{
+			_context.Contatos.Add(contato);
+			_context.SaveChanges();
 
-            return contato;
-        }
+			return contato;
+		}
 
-        public ContatoModel Atualizar(ContatoModel contato)
-        {
-            ContatoModel contatoDB = ListarPorId(contato.Id);
+		public ContatoModel Atualizar(ContatoModel contato)
+		{
+			ContatoModel contatoDB = BuscarPorId(contato.Id);
 
-            if (contatoDB == null) throw new Exception("Houve um error na atualização do contato!");
+			if (contatoDB == null) throw new Exception("Houve um error na atualização do contato!");
 
-            contatoDB.Nome = contato.Nome;
-            contatoDB.Email = contato.Email;
-            contatoDB.Celular = contato.Celular;
+			contatoDB.Nome = contato.Nome;
+			contatoDB.Email = contato.Email;
+			contatoDB.Celular = contato.Celular;
 
-            _context.Contatos.Update(contatoDB);
-            _context.SaveChanges();
+			_context.Contatos.Update(contatoDB);
+			_context.SaveChanges();
 
-            return contatoDB;
-        }
+			return contatoDB;
+		}
 
-        public bool Apagar(int id)
-        {
-            ContatoModel contatoDB = ListarPorId(id);
+		public bool Apagar(int id)
+		{
+			ContatoModel contatoDB = BuscarPorId(id);
 
-            if (contatoDB == null) throw new Exception("Houve um error na deleção do contato!");
+			if (contatoDB == null) throw new Exception("Houve um error na deleção do contato!");
 
-            _context.Contatos.Remove(contatoDB);
-            _context.SaveChanges();
+			_context.Contatos.Remove(contatoDB);
+			_context.SaveChanges();
 
-            return true;
-        }
-    }
+			return true;
+		}
+	}
 }

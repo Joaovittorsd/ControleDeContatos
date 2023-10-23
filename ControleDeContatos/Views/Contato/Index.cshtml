@@ -4,33 +4,39 @@
 }
 
 <div class="text-center">
-
 	<div class="d-grid gap-2 d-md-flex justify-content-md-start">
 		<a class="btn btn-primary" role="button" asp-controller="Contato" asp-action="Criar">Adicionar novo contato</a>
-	</div>
-	<br />
+	</div><br />
 
 	@if (TempData["MensagemSucesso"] != null)
 	{
-		<div class="alert alert-success" role="alert">
-			<button type="button" class="btn btn-danger btn-sm close-alert" airal-label="Close">X</button>
-			@TempData["MensagemSucesso"]
-		</div>
+		<script type="text/javascript">
+			$(document).ready(function () {
+				$("#avisoMensagem").modal("show");
+			});
+		</script>
 	}
 
-	@if (TempData["MensagemErro"] != null)
-	{
-		<div class="alert alert-danger" role="alert">
-			<button type="button" class="btn btn-danger btn-sm close-alert" airal-label="Close">X</button>
-			@TempData["MensagemErro"]
+	<div class="modal fade" id="avisoMensagem" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h1 class="modal-title fs-5" id="modalLabel">AVISO!</h1>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					@TempData["MensagemSucesso"]
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+				</div>
+			</div>
 		</div>
-	}
-
-	<br />
+	</div>
 
 	<h1 class="display-4">Listagem de contatos</h1>
 
-	<table class="table" id="table-contatos">
+	<table id="table-contatos" class="display" style="width: 100%">
 		<thead>
 			<tr>
 				<th scope="col">#</th>
@@ -43,10 +49,10 @@
 		<tbody>
 			@if (Model != null && Model.Any())
 			{
-				foreach (ContatoModel contato in Model)
+				foreach (var contato in Model)
 				{
 					<tr>
-						<th scope="row">@contato.Id</th>
+						<td scope="row">@contato.Id</td>
 						<td>@contato.Nome</td>
 						<td>@contato.Email</td>
 						<td>@contato.Celular</td>
