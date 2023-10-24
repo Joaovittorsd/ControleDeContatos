@@ -2,6 +2,8 @@
 
 Este é um projeto de cadastro de contatos desenvolvido em C# com ASP.NET Core. Ele fornece a capacidade de criar, listar, editar e excluir contatos. O projeto é destinado a ser um exemplo básico de uma aplicação web utilizando ASP.NET Core e pode servir como base para projetos mais complexos.
 
+⚠️ **Observação:** Este projeto não se concentra no design, mas sim na funcionalidade. Portanto, o design pode ser simples e não otimizado para fins estéticos.
+
 ## Funcionalidades
 
 - **Cadastro de Contatos:** Adicione informações de contato, incluindo nome, e-mail e celular.
