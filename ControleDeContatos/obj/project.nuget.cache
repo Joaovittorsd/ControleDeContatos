@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "pXOmKSzRuOzo8jTUZHyLBKuM2OJYQgWHuK2Wylq3eWOHMzE0m9HAYH3RGVdulHY5QkJSsDpX3pY6bKg/c8lhQA==",
+  "dgSpecHash": "m2EJ3ShyPpsvUGSnXIx8APsnQIGMyDMDpC5xFyF5K5XmaUyOoquWjuIifoTBbjREZMoUS8N2OYEtCnY2F1YNAQ==",
   "success": true,
-  "projectFilePath": "C:\\Projetos Vitor\\ControleDeContatos\\ControleDeContatos\\ControleDeContatos.csproj",
+  "projectFilePath": "C:\\projetos-vitor\\ControleDeContatos\\ControleDeContatos\\ControleDeContatos.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\GSO - TI\\.nuget\\packages\\azure.core\\1.25.0\\azure.core.1.25.0.nupkg.sha512",
     "C:\\Users\\GSO - TI\\.nuget\\packages\\azure.identity\\1.7.0\\azure.identity.1.7.0.nupkg.sha512",
